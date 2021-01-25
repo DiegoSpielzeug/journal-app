@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2'
 import { googleAuthProvider } from '../firebase/firebase-config';
 import { types } from '../types/types';
 import {firebase} from '../firebase/firebase-config';
@@ -15,8 +16,12 @@ export const starLoging = (email, password) => {
                 
             })
             .catch( error => {
-                console.log(error.code);
-                console.log(error.message);
+                dispatch(finisLoading());
+                Swal.fire({
+                    title: 'Error!',
+                    text: error.message,
+                    icon: 'error'
+                })
             })
 
     }
@@ -30,8 +35,11 @@ export const googleLogin = () => {
                 dispatch(login(user.uid, user.displayName));
             })
             .catch( error => {
-                console.log(error.code);
-                console.log(error.message);
+                Swal.fire({
+                    title: 'Error!',
+                    text: error.message,
+                    icon: 'error'
+                })
             })
     }
 }
